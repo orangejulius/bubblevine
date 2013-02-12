@@ -15,6 +15,11 @@ get '/photo' do
 	get_photo_url
 end
 
+def get_or_post(path, opts={}, &block)
+	  get(path, opts, &block)
+		  post(path, opts, &block)
+end
+
 get_or_post '/callback' do
 	params['hub.challenge']
 end
