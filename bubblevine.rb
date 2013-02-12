@@ -14,3 +14,7 @@ end
 get '/photo' do
 	get_photo_url
 end
+
+post '/callback' do
+	params['hub.challenge']
+end
