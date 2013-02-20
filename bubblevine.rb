@@ -63,5 +63,7 @@ end
 
 #this is POSTed to by Instagram on realtime events
 post '/realtime_callback' do
-	Pusher[session[:user_id]].trigger('new-photo', {'message' => 'hello world'})
+	data = JSON.parse( request.body.read.to_s )
+	user_id = data[0]['object_id']
+	Pusher[user_id].trigger('new-photo', {'message' => 'new photo posted'})
 end
