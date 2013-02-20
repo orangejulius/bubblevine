@@ -5,7 +5,7 @@ require 'open-uri'
 
 enable :sessions
 
-CALLBACK_URL = "http://localhost:4567/oauth/callback"
+CALLBACK_URL = ENV['BASE_URL']+'oauth/callback'
 
 Instagram.configure do |config|
   config.client_id = ENV['INSTAGRAM_CLIENT_ID']
@@ -51,7 +51,8 @@ end
 
 get '/create_realtime_subscription' do
 	puts "session user id is " + session[:user_id]
-	Instagram.create_subscription(object: 'user', aspect: 'media', callback_url: 'http://bubblevine.herokuapp.com/realtime_callback', object_id: session[:user_id],client_id: ENV['INSTAGRAM_CLIENT_ID'], verify_token: 'foo')
+	callback_url = ENV['BASE_URL'] + 'realtime_callback'
+	Instagram.create_subscription(object: 'user', aspect: 'media', callback_url: callback_url, object_id: session[:user_id],client_id: ENV['INSTAGRAM_CLIENT_ID'], verify_token: 'foo')
 end
 
 get '/realtime_callback' do
