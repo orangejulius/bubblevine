@@ -1,6 +1,7 @@
 require 'instagram'
 require 'json'
 require 'sinatra'
+require 'pusher'
 require 'open-uri'
 
 enable :sessions
