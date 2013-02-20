@@ -50,17 +50,17 @@ get '/photo' do
 end
 
 get '/create_realtime_subscription' do
-	puts "session user id is " + session[:user_id]
 	callback_url = ENV['BASE_URL'] + 'realtime_callback'
 	response = Instagram.create_subscription(object: 'user', aspect: 'media', callback_url: callback_url, object_id: session[:user_id],client_id: ENV['INSTAGRAM_CLIENT_ID'], verify_token: 'foo')
-	puts response
 	"success"
 end
 
+#this is used to verify the realtime subscription
 get '/realtime_callback' do
 	params['hub.challenge']
 end
 
+#this is POSTed to by Instagram on realtime events
 post '/realtime_callback' do
-	params['hub.challenge']
+	Pusher[session[:user_id]].trigger('new-photo', {'message' => 'hello world'})
 end
