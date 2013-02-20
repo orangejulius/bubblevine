@@ -5,6 +5,8 @@ var bubblevine = function(element, username) {
 	var pusher = new Pusher('ce71ccbe68d44c4b14c7');
 	var channel = pusher.subscribe(username);
 	channel.bind('new-photo', function(data) {
-			alert('Received my-event with message: ' + data.message);
+		$.get('/photo', function(responseText) {
+			element.style.background = 'url(' + responseText + ')';
+		});
 	});
 };
