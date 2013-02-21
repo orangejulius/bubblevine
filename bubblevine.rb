@@ -1,10 +1,13 @@
 require 'instagram'
 require 'json'
+require 'redis'
 require 'sinatra'
 require 'pusher'
 require 'open-uri'
 
 enable :sessions
+
+@@redis = Redis.new
 
 CALLBACK_URL = ENV['BASE_URL']+'oauth/callback'
 
@@ -23,8 +26,8 @@ end
 
 get "/oauth/callback" do
   response = Instagram.get_access_token(params[:code], :redirect_uri => CALLBACK_URL)
-  session[:access_token] = response.access_token
-	session[:user_id] = response.user.id
+
+	@@redis.set(response.user.id, response.access_token)
   redirect "/feed"
 end
 
@@ -39,20 +42,21 @@ get "/feed" do
   html
 end
 
-def get_photo_url
-	url = 'https://api.instagram.com/v1/users/self/feed?client_id=c42c61f4ed8d48149c22aa51deacf4f1&access_token='+session[:access_token]
+def get_photo_url(user_id)
+	access_token = @@redis.get(user_id)
+	url = 'https://api.instagram.com/v1/users/self/feed?client_id=c42c61f4ed8d48149c22aa51deacf4f1&access_token='+access_token
 	response = open(url).read
 	response_json = JSON.parse(response)
 	response_json['data'][0]['images']['standard_resolution']['url']
 end
 
 get '/photo' do
-	get_photo_url
+	get_photo_url(params[:user_id])
 end
 
 get '/create_realtime_subscription' do
 	callback_url = ENV['BASE_URL'] + 'realtime_callback'
-	response = Instagram.create_subscription(object: 'user', aspect: 'media', callback_url: callback_url, object_id: session[:user_id],client_id: ENV['INSTAGRAM_CLIENT_ID'], verify_token: 'foo')
+	response = Instagram.create_subscription(object: 'user', aspect: 'media', callback_url: callback_url, object_id: params[:user_id], client_id: ENV['INSTAGRAM_CLIENT_ID'], verify_token: 'foo')
 	"success"
 end
 
