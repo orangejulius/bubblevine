@@ -58,5 +58,6 @@ end
 post '/realtime_callback' do
 	data = JSON.parse( request.body.read.to_s )
 	user_id = data[0]['object_id']
-	Pusher[user_id].trigger('new-photo', {'message' => 'new photo posted'})
+	photo = get_photo_url(user_id)
+	Pusher[user_id].trigger('new-photo', {'message' => photo})
 end
