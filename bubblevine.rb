@@ -33,7 +33,12 @@ get "/oauth/callback" do
   response = Instagram.get_access_token(params[:code], :redirect_uri => CALLBACK_URL)
 
 	@@redis.set(response.user.id, response.access_token)
-  redirect "/test.html"
+	session[:user_id] = response.user.id
+  redirect "/example"
+end
+
+get '/example' do
+	erb :example
 end
 
 def get_photo_url(user_id)
