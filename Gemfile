@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 gem 'instagram'
 gem 'sinatra'
+gem 'sinatra-contrib'
 gem 'pusher'
 gem 'redis'
