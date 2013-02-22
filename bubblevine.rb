@@ -38,6 +38,7 @@ get "/oauth/callback" do
 end
 
 get '/example' do
+	@user_id = session[:user_id]
 	erb :example
 end
 

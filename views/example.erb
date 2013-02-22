@@ -6,7 +6,7 @@
 		<script type="text/javascript" src="/bubblevine.js" ></script>
 		<script type="text/javascript">
 			window.onload = function() {
-				bubblevine(document.getElementById('image-goes-here'), <%= session[:user_id] %>);
+				bubblevine(document.getElementById('image-goes-here'), <%= @user_id %>);
 			};
 		</script>
 	</head>
