@@ -14,6 +14,7 @@ var set_bg_image = function(element, img_url) {
 	var img = new Image();
 	img.onload = function() {
 		element.style.background  = 'url(' +this.src +')';
+		element.style.backgroundSize = '100%';
 	};
 	img.src = img_url;
 };
