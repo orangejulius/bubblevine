@@ -1,4 +1,14 @@
 - content_for :head do
 	== render(:slim, :snippet, layout: false)
-p Test page
+h1 You're all set!
+h2 Just paste the following on your page to get started
+p We know you're busy, so the code is ready to go, pre-populated with your username
+p Just change the code to pass in the DOM object you want to use
+p We'll take care of displaying the photo (via the CSS background image property) and updating it whenever you post
+
+pre
+  =render(:slim, :snippet, layout: false)
+
+h2 This is what it will look like
+p (go ahead, post something and watch it change)
 #image-goes-here style="width: 512px; height: 512px;"
