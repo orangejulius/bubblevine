@@ -41,6 +41,7 @@ end
 
 get '/example' do
 	@user_id = session[:user_id]
+	@base_url = ENV['BASE_URL']
 	slim :example
 end
 
