@@ -1,11 +1,5 @@
-<html>
-	<head>
-		<title>Hi!</title>
-		<%= erb(:snippet, layout: false) %>
-	</head>
-	<body>
-		Test page
-		<div id="image-goes-here" style="width: 512px; height: 512px;">
-		</div>
-	</body>
-</html>
+<% content_for :head do %>
+	<%= erb(:snippet, layout: false) %>
+<% end %>
+Test page
+<div id="image-goes-here" style="width: 512px; height: 512px;"></div>

@@ -2,6 +2,7 @@ require 'instagram'
 require 'json'
 require 'redis'
 require 'sinatra'
+require "sinatra/content_for"
 require 'pusher'
 require 'open-uri'
 
