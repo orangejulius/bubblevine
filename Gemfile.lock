@@ -13,6 +13,7 @@ GEM
       faraday_middleware (~> 0.8)
       hashie (>= 0.4.0)
       multi_json (~> 1.0, >= 1.0.3)
+    json (1.6.7)
     multi_json (1.6.1)
     multipart-post (1.1.5)
     pusher (0.11.3)
@@ -47,6 +48,7 @@ PLATFORMS
 
 DEPENDENCIES
   instagram
+  json
   pusher
   redis
   sinatra
