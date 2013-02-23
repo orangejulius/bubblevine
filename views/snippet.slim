@@ -1,0 +1,7 @@
+script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"
+script src="//js.pusher.com/1.12/pusher.min.js"
+script type="text/javascript" src="/bubblevine.js"
+javascript:
+	window.onload = function() {
+		bubblevine(document.getElementById('image-goes-here'), #{@user_id} );
+	};

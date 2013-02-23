@@ -3,6 +3,7 @@ require 'json'
 require 'redis'
 require 'sinatra'
 require "sinatra/content_for"
+require 'slim'
 require 'pusher'
 require 'open-uri'
 
@@ -40,7 +41,7 @@ end
 
 get '/example' do
 	@user_id = session[:user_id]
-	erb :example
+	slim :example
 end
 
 def get_photo_url(user_id)
