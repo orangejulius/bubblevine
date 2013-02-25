@@ -35,6 +35,7 @@ get "/oauth/callback" do
   response = Instagram.get_access_token(params[:code], :redirect_uri => CALLBACK_URL)
 
 	@@redis.set(response.user.id, response.access_token)
+	create_realtime_subscription(response.user.id)
 	session[:user_id] = response.user.id
   redirect "/example"
 end
@@ -55,10 +56,9 @@ get '/photo' do
 	get_photo_url(params[:user_id])
 end
 
-get '/create_realtime_subscription' do
+def create_realtime_subscription(user_id)
 	callback_url = ENV['BASE_URL'] + 'realtime_callback'
-	response = Instagram.create_subscription(object: 'user', aspect: 'media', callback_url: callback_url, object_id: params[:user_id], client_id: ENV['INSTAGRAM_CLIENT_ID'], verify_token: 'foo')
-	"success"
+	response = Instagram.create_subscription(object: 'user', aspect: 'media', callback_url: callback_url, object_id: user_id, client_id: ENV['INSTAGRAM_CLIENT_ID'], verify_token: 'foo')
 end
 
 #this is used to verify the realtime subscription

@@ -1,6 +1,5 @@
 var bubblevine = function(element, username) {
 	username = username.toString();
-	$.get('/create_realtime_subscription?user_id='+username);
 	$.get('/photo?user_id='+username, function(responseText) {
 		set_bg_image(element, responseText);
 	});
