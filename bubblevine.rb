@@ -47,10 +47,8 @@ end
 
 def get_photo_url(user_id)
 	access_token = @@redis.get(user_id)
-	url = 'https://api.instagram.com/v1/users/self/feed?client_id=c42c61f4ed8d48149c22aa51deacf4f1&access_token='+access_token
-	response = open(url).read
-	response_json = JSON.parse(response)
-	response_json['data'][0]['images']['standard_resolution']['url']
+	client = Instagram.client(access_token: access_token)
+	client.user_recent_media(user_id)[0].images.standard_resolution.url
 end
 
 get '/photo' do
