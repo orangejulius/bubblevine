@@ -1,1 +1,1 @@
-web: bundle exec ruby bubblevine.rb
+web: bundle exec ruby bubblevine.rb -p $PORT
