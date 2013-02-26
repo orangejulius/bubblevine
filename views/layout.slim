@@ -6,13 +6,18 @@ html
     link type="text/css" href="/css/style.css" rel="stylesheet"
 		== yield_content :head
 	body
-		== yield
-    .footer
+    .container
+      == yield
+    .footer.container
       ul
         li
-         ' By
+         ' Created by
          a href="https://twitter.com/juliansimioni" Julian Simioni
          '  and
          a href="https://twitter.com/huckpilot" Christopher Black
         li
           a href="https://github.com/orangejulius/bubblevine" Github
+        li
+          ' Background credit:
+          a href="https://secure.flickr.com/photos/sonictk/333871691/" sonictk
+          '  on Flickr

@@ -1,6 +1,54 @@
+a {
+  color: #666;
+}
+
+body {
+  background: url('/img/background.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.container {
+  width: 60%;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 20px;
+  height: 90%;
+}
+
+.jumbotron {
+  margin: 60px;
+  text-align: center;
+}
+
+.jumbotron h1 {
+  font-size: 50px;
+}
+
 .btn img {
 	display: inline-block;
 	height: 1.5em;
 	padding: 5px;
 	vertical-align: -50%;
+}
+
+.footer {
+  height: 10%;
+}
+
+.footer ul {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: inline-block;
+}
+
+.footer ul li {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  width: 33%;
+  text-align: center;
 }
