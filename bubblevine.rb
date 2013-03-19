@@ -16,7 +16,7 @@ else
 	@@redis = Redis.new
 end
 
-CALLBACK_URL = ENV['BASE_URL']+'oauth/callback'
+INSTAGRAM_CALLBACK_URL = ENV['BASE_URL']+'instagram/oauth/callback'
 
 Instagram.configure do |config|
   config.client_id = ENV['INSTAGRAM_CLIENT_ID']
@@ -27,12 +27,12 @@ get "/" do
 	slim :index
 end
 
-get "/oauth/connect" do
-  redirect Instagram.authorize_url(:redirect_uri => CALLBACK_URL)
+get "/instagram/oauth/connect" do
+  redirect Instagram.authorize_url(:redirect_uri => INSTAGRAM_CALLBACK_URL)
 end
 
-get "/oauth/callback" do
-  response = Instagram.get_access_token(params[:code], :redirect_uri => CALLBACK_URL)
+get "/instagram/oauth/callback" do
+  response = Instagram.get_access_token(params[:code], :redirect_uri => INSTAGRAM_CALLBACK_URL)
 
 	@@redis.set(response.user.id, response.access_token)
 	create_realtime_subscription(response.user.id)
@@ -62,12 +62,12 @@ def create_realtime_subscription(user_id)
 end
 
 #this is used to verify the realtime subscription
-get '/realtime_callback' do
+get '/instagram/realtime_callback' do
 	params['hub.challenge']
 end
 
 #this is POSTed to by Instagram on realtime events
-post '/realtime_callback' do
+post '/instagram/realtime_callback' do
 	data = JSON.parse( request.body.read.to_s )
 	user_id = data[0]['object_id']
 	photo = get_photo_url(user_id)
