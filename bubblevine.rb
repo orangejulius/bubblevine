@@ -11,7 +11,7 @@ enable :sessions
 
 if ENV['REDISTOGO_URL']
 	uri = URI.parse(ENV["REDISTOGO_URL"])
-	@@redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+	@@redis = Redis.new(host: uri.host, port: uri.port, password: uri.password)
 else
 	@@redis = Redis.new
 end
@@ -28,11 +28,11 @@ get "/" do
 end
 
 get "/instagram/oauth/connect" do
-  redirect Instagram.authorize_url(:redirect_uri => INSTAGRAM_CALLBACK_URL)
+  redirect Instagram.authorize_url(redirect_uri: INSTAGRAM_CALLBACK_URL)
 end
 
 get "/instagram/oauth/callback" do
-  response = Instagram.get_access_token(params[:code], :redirect_uri => INSTAGRAM_CALLBACK_URL)
+  response = Instagram.get_access_token(params[:code], redirect_uri: INSTAGRAM_CALLBACK_URL)
 
 	@@redis.set(response.user.id, response.access_token)
 	create_realtime_subscription(response.user.id)
@@ -58,7 +58,11 @@ end
 
 def create_realtime_subscription(user_id)
 	callback_url = ENV['BASE_URL'] + 'realtime_callback'
-	response = Instagram.create_subscription(object: 'user', aspect: 'media', callback_url: callback_url, object_id: user_id, client_id: ENV['INSTAGRAM_CLIENT_ID'], verify_token: 'foo')
+	response = Instagram.create_subscription(object: 'user', aspect: 'media',
+                                           callback_url: callback_url,
+                                           object_id: user_id,
+                                           client_id: ENV['INSTAGRAM_CLIENT_ID'],
+                                           verify_token: 'foo')
 end
 
 #this is used to verify the realtime subscription
@@ -68,7 +72,7 @@ end
 
 #this is POSTed to by Instagram on realtime events
 post '/instagram/realtime_callback' do
-	data = JSON.parse( request.body.read.to_s )
+	data = JSON.parse(request.body.read.to_s)
 	user_id = data[0]['object_id']
 	photo = get_photo_url(user_id)
 	Pusher[user_id].trigger('new-photo', {'message' => photo})
