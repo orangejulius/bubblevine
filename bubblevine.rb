@@ -16,7 +16,7 @@ else
 	@@redis = Redis.new
 end
 
-INSTAGRAM_CALLBACK_URL = ENV['BASE_URL']+'instagram/oauth/callback'
+INSTAGRAM_CALLBACK_URL = ENV['BASE_URL'] + 'instagram/oauth/callback'
 
 Instagram.configure do |config|
   config.client_id = ENV['INSTAGRAM_CLIENT_ID']
