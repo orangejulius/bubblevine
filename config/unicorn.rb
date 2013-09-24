@@ -2,7 +2,7 @@
 app_path = "/home/bubblevine/current"
 
 # Set unicorn options
-worker_processes 1
+worker_processes 2
 preload_app true
 timeout 180
 listen "127.0.0.1:9010"
