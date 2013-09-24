@@ -11,9 +11,9 @@ enable :sessions
 
 if ENV['REDISTOGO_URL']
 	uri = URI.parse(ENV["REDISTOGO_URL"])
-	@@redis = Redis.new(host: uri.host, port: uri.port, password: uri.password)
+	@redis = Redis.new(host: uri.host, port: uri.port, password: uri.password)
 else
-	@@redis = Redis.new
+	@redis = Redis.new
 end
 
 INSTAGRAM_CALLBACK_URL = ENV['BASE_URL'] + 'instagram/oauth/callback'
@@ -46,7 +46,7 @@ end
 get "/instagram/oauth/callback" do
   response = Instagram.get_access_token(params[:code], redirect_uri: INSTAGRAM_CALLBACK_URL)
 
-	@@redis.set(response.user.id, response.access_token)
+	@redis.set(response.user.id, response.access_token)
 	create_realtime_subscription(response.user.id)
 	session[:user_id] = response.user.id
   redirect "/example"
@@ -68,7 +68,7 @@ end
 
 # helper method to get the photo url to use
 def get_photo_url(user_id)
-	access_token = @@redis.get(user_id)
+	access_token = @redis.get(user_id)
 	client = Instagram.client(access_token: access_token)
 	client.user_recent_media(user_id)[0].images.standard_resolution.url
 end
