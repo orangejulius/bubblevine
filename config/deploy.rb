@@ -3,7 +3,7 @@ require 'capistrano-unicorn'
 
 set :application, "bubblevine"
 set :repository,  "https://github.com/orangejulius/bubblevine.git"
-set :domain, "juliansimioni.com"
+set :domain, "bubblevine.io"
 
 role :app, domain
 role :web, domain
