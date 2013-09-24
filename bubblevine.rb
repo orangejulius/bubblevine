@@ -57,7 +57,7 @@ get '/photo' do
 end
 
 def create_realtime_subscription(user_id)
-	callback_url = ENV['BASE_URL'] + 'realtime_callback'
+	callback_url = ENV['BASE_URL'] + 'instagram/realtime_callback'
 	response = Instagram.create_subscription(object: 'user', aspect: 'media',
                                            callback_url: callback_url,
                                            object_id: user_id,
