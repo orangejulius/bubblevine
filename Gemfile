@@ -14,3 +14,5 @@ group :development do
   gem 'rvm-capistrano', require: false
   gem 'capistrano-unicorn', require: false
 end
+
+gem 'unicorn'
