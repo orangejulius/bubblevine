@@ -13,6 +13,7 @@ group :development do
   gem 'capistrano', require: false
   gem 'rvm-capistrano', require: false
   gem 'capistrano-unicorn', require: false
+  gem 'foreman'
 end
 
 gem 'unicorn'
