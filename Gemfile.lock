@@ -46,8 +46,6 @@ GEM
       rack (>= 1.0)
     raindrops (0.13.0)
     redis (3.0.4)
-    rvm-capistrano (1.5.0)
-      capistrano (>= 2.15.4)
     signature (0.1.7)
     sinatra (1.4.5)
       rack (~> 1.4)
@@ -82,7 +80,6 @@ DEPENDENCIES
   json
   pusher
   redis
-  rvm-capistrano
   sinatra
   sinatra-contrib
   slim
