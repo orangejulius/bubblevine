@@ -1,6 +1,7 @@
 ruby '2.2.0'
 
-source 'http://rubygems.org'
+source 'https://rubygems.org'
+
 gem 'instagram'
 gem 'json'
 gem 'sinatra'
