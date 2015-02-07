@@ -63,7 +63,7 @@ end
 def get_photo_url(user_id)
 	access_token = redis.get(user_id)
 	client = Instagram.client(access_token: access_token)
-	client.user_recent_media(user_id)[0].images.standard_resolution.url
+	client.user_recent_media(user_id)[0].images.standard_resolution.url.sub('http://', 'https://')
 end
 
 # helper method to create a new realtime subscription
